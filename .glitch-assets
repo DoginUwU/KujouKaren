@@ -1,0 +1,7 @@
+const Discord = require('discord.js');
+const Config = require('../config.json')
+const DC = Config.DC;
+const myanimelist = require('myanimelists');
+const { getSeasons } = require('myanimelists');
+{"name":"seguiemj.ttf","date":"2019-04-22T02:15:56.051Z","url":"https://cdn.glitch.com/3c4d3468-f0c7-4df4-aa55-c5d16898c8b1%2Fseguiemj.ttf","type":"","size":676304,"thumbnail":"https://cdn.glitch.com/3c4d3468-f0c7-4df4-aa55-c5d16898c8b1%2Fthumbnails%2Fseguiemj.ttf","thumbnailWidth":210,"thumbnailHeight":210,"uuid":"3KdkJ5IUfNvKppo4"}
+{"name":"Mosk Normal 400.ttf","date":"2019-04-22T02:43:24.110Z","url":"https://cdn.glitch.com/3c4d3468-f0c7-4df4-aa55-c5d16898c8b1%2FMosk%20Normal%20400.ttf","type":"","size":59624,"thumbnail":"https://cdn.glitch.com/3c4d3468-f0c7-4df4-aa55-c5d16898c8b1%2Fthumbnails%2FMosk%20Normal%20400.ttf","thumbnailWidth":210,"thumbnailHeight":210,"uuid":"pttuDO2gie8d2php"}
