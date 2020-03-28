@@ -1,2 +1,0 @@
-# KujouKaren
-A discord bot 
