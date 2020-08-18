@@ -5,7 +5,7 @@ const fs = require('fs');
 const lg = require('../storage/language.json');
 let serverData = require('../storage/serverData.json');
 
-exports.run = (client, message, args, language) => {
+exports.run = (client, message, args, language, dt) => {
   let Mention = message.member;
   if(Mention.hasPermission('ADMINISTRATOR'))
     {
@@ -25,7 +25,7 @@ exports.run = (client, message, args, language) => {
               .then((collected) => {
                   const text = collected.first().content;
                    serverData[message.guild.id].welcome1 = text;
-                   fs.writeFile('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
+                   fs.writeFileAsync('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
                     if (err) 
                     {
                       const YDHP = new Discord.RichEmbed()
@@ -67,7 +67,7 @@ exports.run = (client, message, args, language) => {
               .then((collected) => {
                   const text = collected.first().content;
                    serverData[message.guild.id].welcome2 = text;
-                   fs.writeFile('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
+                   fs.writeFileAsync('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
                     if (err) 
                     {
                       const YDHP = new Discord.RichEmbed()
@@ -118,7 +118,7 @@ exports.run = (client, message, args, language) => {
                       return message.channel.send(YDHP).then(msg => {msg.delete(35000)});
                   }
                    serverData[message.guild.id].welcome = text;
-                   fs.writeFile('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
+                   fs.writeFileAsync('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
                     if (err) 
                     {
                       const YDHP = new Discord.RichEmbed()
@@ -154,6 +154,9 @@ exports.run = (client, message, args, language) => {
     }
   else
   {
-    message.channel.send(lg[language].not_allowed + "ADMINISTRATOR" + lg[language].not_allowed_2)
+    let Permission = new Discord.RichEmbed()
+    .setColor("#ff0000")
+    .setDescription(lg[language].dt_message)     
+    return message.channel.send(Permission);
   }
 }

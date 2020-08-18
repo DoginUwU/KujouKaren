@@ -12,8 +12,9 @@ const DP = {
 
 var welcome = false;
 var goodbye = false;
+var track = false;
 
-exports.run = (client, message, args, language, permission) => {
+exports.run = (client, message, args, language, permission, dt) => {
   let Mention = message.mentions.members.first() || message.member;
   if(message.member.hasPermission('ADMINISTRATOR') || permission)
     {
@@ -27,6 +28,9 @@ exports.run = (client, message, args, language, permission) => {
       }
       if(serverData[message.guild.id].welcome != "" && serverData[message.guild.id].welcome1 != "" && serverData[message.guild.id].welcome2 != ""){
         welcome = true;
+      }
+      if(serverData[message.guild.id].track != ""){
+        track = true;
       }
 
       if (ID == 1) {
@@ -177,7 +181,7 @@ exports.run = (client, message, args, language, permission) => {
       let Prefix = serverData[message.guild.id].prefix;
       let Config = new Discord.RichEmbed()
       .setColor(DC)
-      .setAuthor(client.user.username, client.user.displayAvatarURL)
+      .setAuthor(client.user.username + " - " + "Config", client.user.displayAvatarURL)
       .setDescription(`${lg[language].config2_description} \`${Prefix}config < ID >\` <:Ocupado:555836353787723788>off - <:Online:555836354022473772>on.
     ` + "\n" + lg[language].delm_description + "\n" + `ㅤ${lg[language].d_description} ${DP[serverData[message.guild.id].delm]}
     ` + "**2** : NSFW:" + "\n" + `ㅤ${lg[language].n_description} ${DP[serverData[message.guild.id].nsfw]}
@@ -187,13 +191,17 @@ exports.run = (client, message, args, language, permission) => {
     "\n" + lg[language].mod_description + "\n" + `ㅤ${lg[language].m_description} ${DP[serverData[message.guild.id].admin]}`+
     "\n" + lg[language].music2_description + "\n" + `ㅤ${lg[language].m2_description} ${DP[serverData[message.guild.id].music]}` +
     "\n" + lg[language].welcome_description  + "\n" + `ㅤ${lg[language].welcome1_description} ${DP[welcome]}` +
-    "\n" + lg[language].goodbye_description + "\n" + `ㅤ${lg[language].goodbye1_description} ${DP[goodbye]}`)
+    "\n" + lg[language].goodbye_description + "\n" + `ㅤ${lg[language].goodbye1_description} ${DP[goodbye]}` +
+    "\n" + lg[language].track_description + "\n" + `ㅤ${lg[language].track1_description} ${DP[track]}`
+                     )
       .setFooter(`${lg[language].resquest_command} ${message.author.tag}`, `${message.author.avatarURL}`)
       
       message.channel.send(Config)
       }
   }else{
-    const YDHP = new Discord.RichEmbed()
-      message.channel.send(lg[language].not_allowed + "ADMINISTRATOR" + lg[language].not_allowed_2)
+     let Permission = new Discord.RichEmbed()
+    .setColor("#ff0000")
+    .setDescription(lg[language].dt_message)     
+    return message.channel.send(Permission);
   }
 }

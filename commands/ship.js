@@ -9,9 +9,7 @@ const lg = require('../storage/language.json');
 exports.run = (client, message, args, language) => {
   let user_one = message.mentions.users.first();
   let user_two_t = args[1];
-  let user_two = client.users.find(user => user == user_two_t);
-  
-  console.log(user_two_t.user);
+  let user_two = client.users.find(user => user === user_two_t);
   
   if(args[0] != "" && args[1] != ""){
     DrawShip();
@@ -26,7 +24,6 @@ exports.run = (client, message, args, language) => {
   }
   
   async function DrawShip(){
-    try{
       const canvas = Canvas.createCanvas(1200, 505);
       const ctx = canvas.getContext('2d');
 
@@ -34,12 +31,16 @@ exports.run = (client, message, args, language) => {
 
       const { body: a } = await snekfetch.get(panelIMG);
       const panel = await Canvas.loadImage(a);
+    
+    console.log(user_one);
 
-      const { body: b } = await snekfetch.get(user_one.avatarURL);
+      const { body: b } = await snekfetch.get(user_one.user.displayAvatarURL());
       const user1 = await Canvas.loadImage(b);
 
-      const { body: c } = await snekfetch.get(user_two.avatarURL);
+      const { body: c } = await snekfetch.get(user_two.user.displayAvatarURL());
       const user2 = await Canvas.loadImage(c);
+    
+      
 
       ctx.drawImage(panel, 0, 0, 1200, 505); 
       ctx.drawImage(user1, 65, 70, 366, 370);
@@ -115,14 +116,5 @@ exports.run = (client, message, args, language) => {
       const attach = new Discord.Attachment(canvas.toBuffer(), 'ship.png');
 
       message.channel.send(attach);
-    }catch(err){
-      const YDHP = new Discord.RichEmbed()
-      .setColor('#ff0000')
-      .setAuthor(client.user.username, client.user.displayAvatarURL)
-      .setDescription(lg[language].error)
-      .setFooter(lg[language].deleted_soon)
-  
-      message.channel.send(YDHP).then(msg => {msg.delete(35000)});
-    }
   }
 }

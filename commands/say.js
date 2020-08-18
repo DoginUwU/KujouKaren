@@ -4,7 +4,7 @@ const DC = Config.DC;
 
 const lg = require('../storage/language.json');
 
-exports.run = (client, message, args, language, permission) => {
+exports.run = (client, message, args, language, permission, dt) => {
   if(message.member.hasPermission('MANAGE_MESSAGES')) {
     if (args.join(" ") == "") {
       let Error = new Discord.RichEmbed()
@@ -14,9 +14,13 @@ exports.run = (client, message, args, language, permission) => {
     
       message.channel.send(Error).then(msg => {msg.delete(35000)});
     }else{
+      message.delete();
       message.channel.send(args.join(" "))
     }
   }else{
-    message.channel.send(lg[language].not_allowed + "MANAGE_MESSAGES" + lg[language].not_allowed_2)
+    let Permission = new Discord.RichEmbed()
+    .setColor("#ff0000")
+    .setDescription(lg[language].dt_message)     
+    return message.channel.send(Permission);
   }
 }

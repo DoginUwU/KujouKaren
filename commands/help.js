@@ -38,7 +38,7 @@ exports.run = (client, message, args, language) => {
     .setAuthor(client.user.username + " - " + "Moderation 🗃", client.user.displayAvatarURL)
     .setDescription(lg[language].adm_description)
     .addField(lg[language].commands + " " + "✨",
-             `${Prefix}set_prefix : ${lg[language].prefix_description}` + "\n" + `${Prefix}ban : ${lg[language].ban_description}` + "\n" + `${Prefix}kick : ${lg[language].kick_description}` + "\n" + `${Prefix}clear : ${lg[language].clear_description}` + "\n" + `${Prefix}welcome : ${lg[language].welcome1_description}` + "\n" + `${Prefix}goodbye : ${lg[language].goodbye1_description}`)
+             `${Prefix}ban : ${lg[language].ban_description}` + "\n" + `${Prefix}kick : ${lg[language].kick_description}` + "\n" + `${Prefix}clear : ${lg[language].clear_description}` + "\n" + `${Prefix}welcome : ${lg[language].welcome1_description}` + "\n" + `${Prefix}goodbye : ${lg[language].goodbye1_description}`)
     .setFooter(`${lg[language].resquest_command} ${message.author.tag}`, `${message.author.avatarURL}`)
     
     message.channel.send(Admin);
@@ -49,7 +49,7 @@ exports.run = (client, message, args, language) => {
     .setAuthor(client.user.username + " - " + "Core ⚙️", client.user.displayAvatarURL)
     .setDescription(lg[language].core_description)
     .addField(lg[language].commands + " " + "✨",
-             `${Prefix}config : ${lg[language].config_description}`)
+             `${Prefix}config : ${lg[language].config_description}` + "\n" + `${Prefix}set_prefix : ${lg[language].prefix_description}`)
     .setFooter(`${lg[language].resquest_command} ${message.author.tag}`, `${message.author.avatarURL}`)
     
     message.channel.send(Core);
@@ -105,7 +105,7 @@ exports.run = (client, message, args, language) => {
                       .setAuthor(client.user.username + " - " + "Util 🛠", client.user.displayAvatarURL)
                       .setDescription(lg[language].util_description)
                       .addField(lg[language].commands + " " + "✨",
-                                   `${Prefix}botinfo : ${lg[language].botinfo_description}` + "\n" + `${Prefix}binary : ${lg[language].binary_description}` + "\n" + `${Prefix}qrcode : ${lg[language].qrcode_description}` + "\n" + `${Prefix}userinfo : ${lg[language].userinfo_description}` + "\n" + `${Prefix}ship : ${lg[language].ship_description}` + "\n" + `${Prefix}spotify : ${lg[language].spotify_description}` + "\n" + `${Prefix}steam : ${lg[language].steam_description}` + "\n" + `${Prefix}translate : ${lg[language].translate_description}` + "\n" + `${Prefix}weather : ${lg[language].weather_description}` + "\n" + `${Prefix}videochat : ${lg[language].videochat_description}`)
+                                   `${Prefix}info : ${lg[language].botinfo_description}` + "\n" + `${Prefix}binary : ${lg[language].binary_description}` + "\n" + `${Prefix}qrcode : ${lg[language].qrcode_description}` + "\n" + `${Prefix}userinfo : ${lg[language].userinfo_description}` + "\n" + `${Prefix}ship : ${lg[language].ship_description}` + "\n" + `${Prefix}spotify : ${lg[language].spotify_description}` + "\n" + `${Prefix}steam : ${lg[language].steam_description}` + "\n" + `${Prefix}translate : ${lg[language].translate_description}` + "\n" + `${Prefix}weather : ${lg[language].weather_description}` + "\n" + `${Prefix}videochat : ${lg[language].videochat_description}`)
                       .setFooter(`${lg[language].resquest_command} ${message.author.tag}`, `${message.author.avatarURL}`))
                   }
               })
@@ -169,6 +169,7 @@ exports.run = (client, message, args, language) => {
       .setAuthor(client.user.username, client.user.displayAvatarURL)
       .setDescription(lg[language].hello_iam + " " + `\*\*${client.user.username}\*\*` + "." + " " + lg[language].im_currently + " " + `\*\*${client.guilds.size}\*\*` + " " + lg[language].servers + " " + lg[language].total_of + " " + `\*\*${client.users.size}\*\*` + " " + lg[language].users_2 + " " + lg[language].exactly + " " + `\*\*${cmds}\*\*` + " " + lg[language].commands_2 + "\n\n" + lg[language].all_commands + " " + "`" + `${Prefix}help <${lg[language].pack}>` + "`.")
       .addField(lg[language].package + " " + "✨", `` + `Core${Administrator} Util${Music} ${Economy} Roleplay, Anime${NSFW}`)
+      .addField(lg[language].log + " " + "🔮", `\*\*\*- Command ${Prefix}Info has undergone a simple change in the links part.\n- The ${Prefix}Prefix command has been enabled again.\n- Command ${Prefix}Spotify added!\n- The ${Prefix}Hentai command is disabled because the API has stopped.\n- Command K!Track added!\*\*\*`)
       .setFooter(`${lg[language].resquest_command} ${message.author.tag}`, `${message.author.avatarURL}`)
       
       return message.channel.send(Help);

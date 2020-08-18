@@ -154,6 +154,9 @@ exports.run = (client, message, args, language) => {
     }
   else
   {
-    message.channel.send(lg[language].not_allowed + "ADMINISTRATOR" + lg[language].not_allowed_2)
+    let Permission = new Discord.RichEmbed()
+    .setColor("#ff0000")
+    .setDescription(lg[language].dt_message)     
+    return message.channel.send(Permission);
   }
 }
