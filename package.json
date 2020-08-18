@@ -15,7 +15,6 @@
     "aewx-metar-parser": "^0.10.1",
     "akaneko": "^3.0.2",
     "booru": "^2.2.3",
-    "canvas": "^2.6.1",
     "dblapi.js": "^2.4.0",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
