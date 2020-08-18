@@ -6,7 +6,7 @@ var file = require('file-system');
 const serverData = JSON.parse(file.readFileSync("./storage/serverData.json", "utf8"));
 const lg = require('../storage/language.json');
 
-exports.run = (client, message, args, language, permission) => {
+exports.run = (client, message, args, language, permission, dt) => {
   let Mention = message.member;
   if(message.member.hasPermission('MANAGE_CHANNELS') || permission)
     {
@@ -61,6 +61,9 @@ exports.run = (client, message, args, language, permission) => {
         return message.channel.send(YDHP).then(msg => {msg.delete(35000)});
       }
     }else{
-      message.channel.send(lg[language].not_allowed + "MANAGE_MESSAGES" + lg[language].not_allowed_2)
+      let Permission = new Discord.RichEmbed()
+    .setColor("#ff0000")
+    .setDescription(lg[language].dt_message)     
+    return message.channel.send(Permission);
     }
 }

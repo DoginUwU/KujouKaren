@@ -8,7 +8,8 @@ app.get("/", (request, response) => {
 app.listen(process.env.PORT);
 setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
+}, 90000);
+
 
 //Implements.
 const Discord = require('discord.js');
@@ -16,7 +17,7 @@ const Config = require('./config.json');
 var file = require('file-system');
 let playerData = require('./storage/playerData.json');
 var background = JSON.parse(file.readFileSync("./storage/background.json", "utf8"));
-const serverData = JSON.parse(file.readFileSync("./storage/serverData.json", "utf8"));
+let serverData = require('./storage/serverData.json');
 const lg = require('./storage/language.json');
 const bot_config = require('./storage/bot.json');
 const votes = require('./storage/votes.json');
@@ -25,6 +26,9 @@ const pack = require('./package.json');
 const DC = Config.DC;
 const { readdirSync } = require('fs')
 var fs = require('fs');
+var spotify_id = [];
+var spotify_name = [];
+var spotify_id_server = [];
 const client = new Discord.Client({
     autoReconnect: true,
     messageCacheMaxSize: 2024,
@@ -49,13 +53,99 @@ var permission = false;
 const DBL = require('dblapi.js');
 const dbl = new DBL(process.env.bot_token, { webhookPort: 5000, webhookAuth: 'password' });
 
+//Regions.
+let Region = {
+        "brazil": "pt-br",
+        "eu-central": "en",
+        "singapore": "en",
+        "us-central": "en",
+        "sydney": "en",
+        "us-east": "en",
+        "us-south": "en",
+        "us-west": "en",
+        "eu-west": "en",
+        "vip-us-east": "en",
+        "london": "en",
+        "amsterdam": "en",
+        "hongkong": "en",
+        "russia": "en",
+        "southafrica": "en"
+    };
+
+setInterval(function(){
+  client.guilds.forEach(guild => {
+    try{
+  if(serverData[guild.id] != null){
+  if(serverData[guild.id].track != ""){
+    //console.log(guild.id);
+     const joinChannel = guild.channels.find(x => x.name === serverData[guild.id].track);
+     //joinChannel.send("a");
+    var onlineMembers = guild.members.filter(member => member.presence.game != null && member.presence.game.name == "Spotify");
+      
+    onlineMembers.forEach((member, key) => {
+      var activity = member.presence.game;
+      var img = `https://i.scdn.co/image/${activity.assets.largeImage.slice(8)}`
+      var url = `https://open.spotify.com/track/${activity.syncID}`;
+      var music = activity.details;
+      var authors = activity.state; 
+      
+      for(var i = 0; i <= spotify_id.length; i++){
+        if(spotify_id[i] == member.user.id && i < spotify_id.length){
+           if(spotify_name[i] == music && spotify_id_server[i] == guild.id){
+              return;
+            }else{
+              spotify_name[i] = music;
+            }
+        }else if(i == spotify_id.length && spotify_id[i] != member.user.id){
+          spotify_id.push(member.user.id);
+          spotify_name.push(music);  
+          spotify_id_server.push(guild.id);  
+           let Spotify = new Discord.RichEmbed()
+          .setColor("#00bd06")
+          .setAuthor("Spotify", "https://www.magneticmag.com/.image/t_share/MTY1MTczMzk2MzUzNTkwNTg0/spotify_icon_cmyk_green.png")
+          .addField(lg[serverData[guild.id].language].listening_now, `[${music}](${url})`)
+          .addField(lg[serverData[guild.id].language].spo_author, activity.state)
+          .addField(lg[serverData[guild.id].language].spo_user, member.user.username)
+          .setThumbnail(img)
+          //spotify.push({id: "1", music: "a"});
+
+
+          joinChannel.send(Spotify);
+          return;
+        }
+      }
+      
+      
+
+      let Spotify = new Discord.RichEmbed()
+      .setColor("#00bd06")
+      .setAuthor("Spotify", "https://www.magneticmag.com/.image/t_share/MTY1MTczMzk2MzUzNTkwNTg0/spotify_icon_cmyk_green.png")
+      .addField(lg["en"].listening_now, `[${music}](${url})`)
+      .addField(lg["en"].spo_author, activity.state)
+      .addField("User", member.user.username)
+      .setThumbnail(img)
+      //spotify.push({id: "1", music: "a"});
+      
+      
+      joinChannel.send(Spotify);
+    });
+  }
+    }
+  }catch(err){
+    console.log("ERROR: *SPOTIFY TRACK* " + err);
+  }
+    });
+    
+}, 1200);
+
+
 //When the bot enters a guild.
 client.on("guildCreate", guild => {
   
     console.log(`The bot entered the server: ${guild.name} (id: ${guild.id}). Population: ${guild.memberCount} members!`);
   
     client.user.setActivity(`${client.users.size} Users!`, { type: 'LISTENING' });
-      fs.writeFile("storage/serverData.json", JSON.stringify(serverData), (err) => {
+      fs.writeFile("./storage/serverData.json", JSON.stringify(serverData), (err) => {
         if(err) console.log(err)
       })
   
@@ -76,7 +166,10 @@ client.on("guildCreate", guild => {
           "welcome2": "",
           "goodbye": "",
           "goodbye1": "",
-          "goodbye2": ""
+          "goodbye2": "",
+          "color": "#ffdb00",
+          "track": "",
+          "ads": true
         }
         fs.writeFile('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
           if (err) console.log(err)
@@ -134,7 +227,143 @@ client.on('guildMemberRemove', (member) =>{
 //When the bot is online
 client.on("message", (message) => {
   
+    if(message.content == "kek" && message.author.bot){
+      return message.channel.send("Kek é teu cu, arrombado >:v");
+    }
+  if(message.content == "rawr" && message.author.bot && message.author.id === "729785275521433641"){
+      return message.channel.send("Com certeza é o dogin");
+    }
+  
+  console.log(message.content);
+  if(message.content.includes(":HYPERAYAYA:") && !message.author.bot){
+    message.channel.send("AYAYA!");
+  }
+
+  
+    if(message.content == "kujou?" && !message.author.bot){
+      message.channel.send("Sim?");
+      try{
+        message.channel.awaitMessages(response => response.content != "Sim?", {
+            max: 2,
+            time: 30000,
+            errors: ['time'],
+          }).then((collected) => {
+          console.log(collected.first().content);
+            /* 1 */ if(collected.first().content == "O'que você acha do zero?"){
+              message.channel.send("O zero é uma vadia, puta, safada");
+              try{
+              message.channel.awaitMessages(response => response.content != "O zero é uma vadia, puta, safada", {
+                  max: 2,
+                  time: 30000,
+                  errors: ['time'],
+                }).then((collected) => {
+                console.log(collected.first().content);
+                  if(collected.first().content == "e do bot de osu?"){
+                    message.channel.send("puta babaca, kek é teu cu");
+                      try{
+                        message.channel.awaitMessages(response => response.content != "puta babaca, kek é teu cu", {
+                            max: 2,
+                            time: 30000,
+                            errors: ['time'],
+                          }).then((collected) => {
+                          console.log(collected.first().content);
+                            if(collected.first().content == "concordo"){
+                              message.channel.send("pse :v");
+                              try{
+                              message.channel.awaitMessages(response => response.content != "pse :v", {
+                                  max: 2,
+                                  time: 30000,
+                                  errors: ['time'],
+                                }).then((collected) => {
+                                console.log(collected.first().content);
+                                  if(collected.first().content == "pronto, bot 10/10"){
+                                    message.channel.send("https://tenor.com/view/yesyesyesyesyes-jojo-gif-8822335");
+
+                                  }
+                              });
+                            }catch(err){
+                              console.log("a");
+                              return undefined;
+                            }
+                            }
+                        });
+                      }catch(err){
+                        console.log("a");
+                        return undefined;
+                      }
+                  }
+              });
+            }catch(err){
+              console.log("a");
+              return undefined;
+            }
+            }
+          
+          if(collected.first().content == "bolo"){
+              message.channel.send("BOLO :v");
+          }
+          if(collected.first().content == "O'que acha da baby?"){
+              message.channel.send("Ela é muito legal >:3");
+          }
+          if(collected.first().content == "hentai"){
+              message.channel.send("ADORO HENTAI >////////<");
+          }
+          if(collected.first().content == "jorge é legal?"){
+              message.channel.send("Jorge é desumilder, não escuta musica com meu dono, parece o caiquer");
+          }
+          if(collected.first().content == "eu quero sair?"){
+              message.channel.send("não quer, caralho");
+          }
+          if(collected.first().content == "puta"){
+              message.channel.send("puta é o Figueiredo, aquele arrombado");
+          }
+          if(collected.first().content == "manda o zero calar a boca"){
+              message.channel.send("Cala a boca zero");
+          }
+          if(collected.first().content == "manda o dogs calar a boca"){
+              message.channel.send("Não 👍");
+          }
+          if(collected.first().content == "gosta de furry ou yaoi?"){
+              message.channel.send("Furro é meu pau!");
+          }
+          if(collected.first().content == "vou jogar sa merda?"){
+              message.channel.send("não 👍");
+          }
+          if(collected.first().content == "quero dar meu cu?"){
+              message.channel.send("você sempre quer");
+          }
+          if(collected.first().content == "Ativar musicas"){
+              message.channel.send("não");
+          }
+          if(collected.first().content == "to com fome"){
+              message.channel.send("me comer é que você não vai");
+              try{
+                message.channel.awaitMessages(response => response.content != "me comer é que você não vai", {
+                  max: 2,
+                                  time: 30000,
+                                  errors: ['time'],
+                                }).then((collected) => {
+                                console.log(collected.first().content);
+                                  if(collected.first().content == "puta"){
+                                    message.channel.send("sua vó");
+
+                                  }
+                              });
+                            }catch(err){
+                              console.log("a");
+                              return undefined;
+                            }
+          }
+        });
+      }catch(err){
+        console.log("a");
+        return undefined;
+      }
+    }
+        
+  
     if(message.channel.type == "dm") return;
+  
     if (message.author.bot) return;
   if(serverData[message.guild.id]){
   var language = serverData[message.guild.id].language;
@@ -157,7 +386,10 @@ client.on("message", (message) => {
           "welcome2": "",
           "goodbye": "",
           "goodbye1": "",
-          "goodbye2": ""
+          "goodbye2": "",
+          "color": "#ffdb00",
+          "track": "",
+          "ads": true
         }
         fs.writeFile('./storage/serverData.json', JSON.stringify(serverData, null, 2), (err) => {
           if (err) console.log(err)
@@ -257,11 +489,7 @@ client.on("message", (message) => {
           if (err) console.log(err)
         });
     }
-  }
-  
-    var language = serverData[message.guild.id].language;
-  
-    
+  }  
     
     //Bot with no prefix commands
      if(message.mentions.users.first()){
@@ -273,6 +501,9 @@ client.on("message", (message) => {
             .setFooter(`${client.user.username} ${pack.version}v - ${lg[language].new_commands_comming}`);
             return message.channel.send(YDHP);
       }
+       if(message.mentions.users.first().id == 160739354589921280){
+         //return message.channel.send("Para de pingar meu dono, puta, cachorra 😡");
+       }
     }
   
    if(serverData[message.guild.id].links == false){
@@ -346,17 +577,26 @@ client.on("message", (message) => {
     
   }
   
+    //Bloquear
+    /*if(message.guild.id == "524341449500917760" && message.content.toLowerCase() == "furry"){
+        message.delete(1);
+        console.log("deleted");
+    }*/
+  
   
   
     //Bot with no prefix commands
   
     //Bot with prefix commands
+  
     if (!message.content.startsWith(Prefix)) return;
   
     let command = message.content.split(" ")[0].toLowerCase();
     command = command.slice(Prefix.length);
 
     let args = message.content.split(" ").slice(1);
+  
+    
   
     if(message.author.id == process.env.CLIENT_OWNER_1 || message.author.id == process.env.CLIENT_OWNER_2 || message.author.id == process.env.CLIENT_MANAGER_1 || message.author.id == process.env.CLIENT_MANAGER_2){
        permission = true;
@@ -380,7 +620,17 @@ client.on("message", (message) => {
         client.commands = new Discord.Collection();
         client.aliases = new Discord.Collection();
         let commandFile = require(`./commands/${command}.js`);
-        commandFile.run(client, message, args, language, permission);
+        var color = serverData[message.guild.id].color;
+      
+        //Message
+        var M = function() {
+        let M = new Discord.RichEmbed()
+        .setDescription("A")
+        return message.channel.send(M);
+        };
+        
+
+        commandFile.run(client, message, args, language, permission, DC, M);
         //client.commands.set(commandFile.help.name, commandFile);
         //message.channel.stopTyping(true)
     } catch (err) {
@@ -403,4 +653,4 @@ client.on("message", (message) => {
     })
 
 //The bot needs this to get starts, then... do not remove this.
-client.login(Token);    
+client.login(Token);

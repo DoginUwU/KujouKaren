@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+  const Discord = require('discord.js');
 const Config = require('../config.json')
 const DC = Config.DC;
 const fs = require('fs');
@@ -6,7 +6,7 @@ const serverData = require('../storage/serverData.json');
 
 const lg = require('../storage/language.json');
 
-exports.run = (client, message, args, language) => {
+exports.run = (client, message, args, language, dt) => {
   try{
   let Mention = message.mentions.members.first() || message.member;
   if(Mention.hasPermission('MANAGE_CHANNELS'))
@@ -31,7 +31,10 @@ exports.run = (client, message, args, language) => {
     }
   else
   {
-    message.channel.send(lg[language].not_allowed + "MANAGE_MESSAGES" + lg[language].not_allowed_2)
+    let Permission = new Discord.RichEmbed()
+    .setColor("#ff0000")
+    .setDescription(lg[language].dt_message)     
+    return message.channel.send(Permission);
     }
   }catch(err){
     const YDHP = new Discord.RichEmbed()

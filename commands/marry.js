@@ -66,13 +66,14 @@ exports.run = (client, message, args, language) => {
   
   async function Marry(user){
        try {
-          message.channel.awaitMessages(response => response.content, {
-            max: 1,
-            time: 30000,
-            errors: ['time'],
-          }).then((collected) => {
-            console.log(collected.first().content);
-         if(collected.first().content == lg[language].accept && id_ == collected.first().author.id){ 
+         message.channel
+      .awaitMessages(response => message.content, {
+        max: 1,
+        time: 30000,
+        errors: ["time"]
+      })
+      .then(collected => {
+        if (collected.first().content === "Accept") {
             marry[idPlayer].accepted = true;
             marry[id_marry_complete].accepted = true;
             playerData[idPlayer].married = id_marry;

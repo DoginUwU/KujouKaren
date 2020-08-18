@@ -28,6 +28,8 @@ exports.run = (client, message, args, language) => {
     }else{
       moment.locale("pt-br");
     }
+    
+    
 
     let Userinfo = new Discord.RichEmbed()
     .setColor(DC)

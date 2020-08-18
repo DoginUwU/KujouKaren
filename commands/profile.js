@@ -35,9 +35,9 @@ exports.run = (client, message, args, language) => {
           const canvas = Canvas.createCanvas(1000, 650);
           const ctx = canvas.getContext('2d');
 
-          Canvas.registerFont("mosk.ttf", { family: "mosk" })
+          /*Canvas.registerFont("mosk.ttf", { family: "mosk" })
           Canvas.registerFont("seguiemj.ttf", { family: "segoeuiemoji" })
-          Canvas.registerFont("komorebi-gothic.ttf", { family: "komorebi" })
+          Canvas.registerFont("komorebi-gothic.ttf", { family: "komorebi" })*/
 
           var panelIMG = "https://cdn.discordapp.com/attachments/540308761458245642/569293434960216067/Profile_1.png";
           var nsfw = false;
@@ -91,7 +91,8 @@ exports.run = (client, message, args, language) => {
           ctx.fillStyle = "#000";
 
           //Description
-          var numPerLine = 36;
+          var numPerLine = 31;
+          var maxCharacters = 245;
           var descriptTxT = playerData[idPlayer2].description.toString();
           var textLenght = descriptTxT.length;
           var newText = "";
@@ -100,6 +101,10 @@ exports.run = (client, message, args, language) => {
               if (i % numPerLine == 0 && i < textLenght){
                     newText = newText + "\n";
               }
+            if(i == maxCharacters){
+               newText = newText + "...";
+               break;
+            }
           }
           ctx.fillStyle = "#8c8c8c";
           ctx.fillText(`${newText}`, 25, 462);
@@ -128,7 +133,7 @@ exports.run = (client, message, args, language) => {
     const YDHP = new Discord.RichEmbed()
             .setColor('#ff0000')
             .setAuthor(client.user.username, client.user.displayAvatarURL)
-            .setDescription(lg[language].error)
+            .setDescription(lg[language].error + " ERROR: " + err)
             .setFooter(lg[language].deleted_soon)
           return message.channel.send(YDHP).then(msg => {msg.delete(35000)});
   }

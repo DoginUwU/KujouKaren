@@ -3,11 +3,10 @@ const { getSeasons } = require('myanimelists');
 const malScraper = require('mal-scraper');
 const Discord = require('discord.js');
 const Config = require('../config.json')
-const DC = Config.DC;
 const lg = require('../storage/language.json');
 let serverData = require('../storage/serverData.json');
 
-exports.run = (client, message, args, language) => {
+exports.run = (client, message, args, language, DC) => {
   try{
       if(args == ""){ 
         const YDHP = new Discord.RichEmbed()
@@ -31,7 +30,7 @@ exports.run = (client, message, args, language) => {
             Anime(result);
         }catch(erro){ 
           const YDHP = new Discord.RichEmbed()
-            .setColor('#ff0000')
+            .setColor(DC)
             .setAuthor(client.user.username, client.user.displayAvatarURL)
             .setDescription(lg[language].anime_not_find)
             .setFooter(lg[language].deleted_soon)
@@ -41,7 +40,7 @@ exports.run = (client, message, args, language) => {
           })
         .catch(error => {
            const YDHP = new Discord.RichEmbed()
-            .setColor('#ff0000')
+            .setColor(DC)
             .setAuthor(client.user.username, client.user.displayAvatarURL)
             .setDescription(lg[language].anime_not_find)
             .setFooter(lg[language].deleted_soon)
@@ -66,13 +65,13 @@ exports.run = (client, message, args, language) => {
         .addField("Note:", `${result.score}`, true)
         .addField("Popularity:", `${result.popularity}`, true)
         .addField("Rank:", `${result.ranked}`, true)
-        .addField("Synopsis:", `${result.synopsis}`, true)
+        .addField("Synopsis:", `${result.synopsis}`, false)
         .addField("Rating:", `${result.rating}`, true)
         .setFooter(`${lg[language].resquest_command} ${message.author.tag}`, `${message.author.avatarURL}`)
         message.channel.send(embed);
         }catch(error){
            const YDHP = new Discord.RichEmbed()
-            .setColor('#ff0000')
+            .setColor(DC)
             .setAuthor(client.user.username, client.user.displayAvatarURL)
             .setDescription(lg[language].anime_not_find)
             .setFooter(lg[language].deleted_soon)
@@ -82,7 +81,7 @@ exports.run = (client, message, args, language) => {
       }
   }catch(err){
     const YDHP = new Discord.RichEmbed()
-      .setColor('#ff0000')
+      .setColor(DC)
       .setAuthor(client.user.username, client.user.displayAvatarURL)
       .setDescription(lg[language].error)
       .setFooter(lg[language].deleted_soon)

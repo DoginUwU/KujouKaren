@@ -32,6 +32,7 @@ exports.run = (client, message, args, language) => {
                      var minutesOff = "0" + date.getMinutes();
                      var convdataTimeOff = dayOff+'/'+monthOff+'/'+yearOff+' '+hoursOff + ':' + minutesOff.substr(-2);
                       var games_ = "none";
+                    console.log(games);
                       for(var i = 0; i < games.lenght; i++){
                         games_ += games[i].name + "\n";
                       }

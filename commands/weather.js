@@ -28,7 +28,7 @@ module.exports.run = async(client, message, args, language) => {
          icon = '⛅';
       }
       if(result[0].current.skytext == "Mostly Cloudy"){
-         icon = '⛅';
+         icon = '⛅⛅';
       }
       if(result[0].current.skytext == "Cloudy"){
          icon = '☁';
@@ -56,4 +56,3 @@ module.exports.run = async(client, message, args, language) => {
     }
   });
 }
-

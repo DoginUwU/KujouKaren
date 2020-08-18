@@ -1,12 +1,12 @@
 const Discord = require('discord.js')
 const lg = require('../storage/language.json');
 
-exports.run = (client, message, args, language, permission) => {
-  if(permission){
-    if(args.join(" ").toLowerCase() == "error 1"){
-      return message.channel.send(lg[language].not_allowed + "PERMISSION" + lg[language].not_allowed_2)
-    }else if(args.join(" ").toLowerCase() == "error 2"){
-      return message.channel.send(lg[language].maintence)
+exports.run = (client, message, args, language, permission, M) => {
+  message.channel.fetchMessages().then(messages => {
+  messages.array().reverse().forEach(msg => {
+    if(msg.author.id === "568539957703213077"){
+    msg.delete();
     }
-  }
+  });
+});
 }

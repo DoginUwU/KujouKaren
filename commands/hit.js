@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const Config = require('../config.json');
 const DC = Config.DC;
 
-const One = "https://i.redd.it/3iiocp7oxfvy.gif"
+const One = "https://media1.tenor.com/images/347f852d3dfa48502406fa949fcc1449/tenor.gif?itemid=15150394"
 const Two = "https://thumbs.gfycat.com/ValidBigheartedBlobfish-size_restricted.gif"
 const Three = "https://66.media.tumblr.com/80cd245b87483830e670a91433e5ef7f/tumblr_nzsyt5upQi1rqe0rbo2_500.gif"
 const Four = "https://cdn.discordapp.com/attachments/540308761458245642/569876295102758933/giphy.gif"
