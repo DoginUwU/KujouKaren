@@ -72,8 +72,19 @@ let Region = {
         "southafrica": "en"
     };
 
+var sended = false;
+
 setInterval(function(){
   client.guilds.forEach(guild => {
+    var d = new Date();
+    d.setHours(d.getHours() - 3);
+    if((d.getHours() === "06" || d.getHours() === 6 || d.getHours() === "6") && !sended){
+      var guild = client.guilds.array().find(ch => ch.id === "605826317274972160");
+      var channel = guild.channels.array().find(ch => ch.id === "605826488419221515");
+      channel.send("O dogs tá dormindo, mas desde cedo quero desejar que o Figueiredo perca imediatamente o jogo. 🙏🙏🙏");
+      sended = true;
+      return;
+    }
     try{
   if(serverData[guild.id] != null){
   if(serverData[guild.id].track != ""){
@@ -302,6 +313,33 @@ client.on("message", (message) => {
           if(collected.first().content == "bolo"){
               message.channel.send("BOLO :v");
           }
+          if(collected.first().content == "<@!387615365884018688>"){ // Figueiredo
+              message.channel.send("Muito tcholakkkkkkkkk");
+          }
+          if(collected.first().content == "<@!296737160550416384>"){ // Zero
+              message.channel.send("gay pra caralho, se fude");
+          }
+          if(collected.first().content == "<@!673290671150596126>"){ // Johannn
+              message.channel.send("literalmente gay pra caralho");
+          }
+          if(collected.first().content == "<@!220755797238349824>"){ // Vala
+              message.channel.send("kek bó jogar osu");
+          }
+          if(collected.first().content == "<@!383663831022567425>"){ // Cabuluno
+              message.channel.send("A lolizinha do grupo");
+          }
+          if(collected.first().content == "<@!394907878231638020>"){ // Canassa
+              message.channel.send("para de usar foto de jojo");
+          }
+          if(collected.first().content == "<@!605804882913656851>"){ // Duda
+              message.channel.send("Ala, a fãgirl de Narutokkkkk, ou um abajur a pilha? \n ** **");
+          }
+          if(collected.first().content == "<@!541423582375313431>"){ // Kirito
+              message.channel.send("Kirito sola fdskkkkkkk");
+          }
+          if(collected.first().content == "<@!160739354589921280>"){ // Dogs
+              message.channel.send("é um tchola também, não foi respeitar meu criador 🖕");
+          }
           if(collected.first().content == "O'que acha da baby?"){
               message.channel.send("Ela é muito legal >:3");
           }
@@ -494,6 +532,7 @@ client.on("message", (message) => {
     //Bot with no prefix commands
      if(message.mentions.users.first()){
       if(message.mentions.users.first().id == 568539957703213077){
+        console.log(message.guild.id)
        const YDHP = new Discord.RichEmbed()
             .setColor(DC)
             .setAuthor(client.user.username, client.user.displayAvatarURL)

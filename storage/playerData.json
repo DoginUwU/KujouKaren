@@ -6,9 +6,9 @@
     "gender": "null",
     "married": "none",
     "background": "Default",
-    "coins": 2825,
-    "xp": 690,
-    "level": 3,
+    "coins": 2888,
+    "xp": 1055,
+    "level": 4,
     "house_level": 1,
     "server": "721574952347762850",
     "id": "694503142167150623"
@@ -20,9 +20,9 @@
     "gender": "null",
     "married": "none",
     "background": "Default",
-    "coins": 3308,
-    "xp": 569,
-    "level": 3,
+    "coins": 3446,
+    "xp": 711,
+    "level": 4,
     "house_level": 1,
     "server": "721574952347762850",
     "id": "160739354589921280"
@@ -40,5 +40,33 @@
     "house_level": 1,
     "server": "733488659046727790",
     "id": "705013153800650814"
+  },
+  "564115512938725420659771723385929738": {
+    "nickname": "",
+    "birthday": "00/00/0000",
+    "description": "new person",
+    "gender": "null",
+    "married": "none",
+    "background": "Default",
+    "coins": 0,
+    "xp": 39,
+    "level": 1,
+    "house_level": 1,
+    "server": "659771723385929738",
+    "id": "564115512938725420"
+  },
+  "563012656106307636659771723385929738": {
+    "nickname": "",
+    "birthday": "00/00/0000",
+    "description": "new person",
+    "gender": "null",
+    "married": "none",
+    "background": "Default",
+    "coins": 0,
+    "xp": 54,
+    "level": 1,
+    "house_level": 1,
+    "server": "659771723385929738",
+    "id": "563012656106307636"
   }
 }
