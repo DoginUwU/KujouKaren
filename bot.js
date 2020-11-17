@@ -1,15 +1,14 @@
-const http = require('http');
+1const http = require('http');
 const express = require('express');
 const app = express();
+app.use(express.static('public'));
 app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping Received");
-  response.sendStatus(200);
+response.sendStatus(200);
 });
 app.listen(process.env.PORT);
 setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 90000);
-
+http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 2000);
 
 //Implements.
 const Discord = require('discord.js');
@@ -81,7 +80,7 @@ setInterval(function(){
     if((d.getHours() === "06" || d.getHours() === 6 || d.getHours() === "6") && !sended){
       var guild = client.guilds.array().find(ch => ch.id === "605826317274972160");
       var channel = guild.channels.array().find(ch => ch.id === "605826488419221515");
-      channel.send("O dogs tá dormindo, mas desde cedo quero desejar que o Figueiredo perca imediatamente o jogo. 🙏🙏🙏");
+      channel.send("O dogs tá dormindo, mas desde cedo quero desejar que o Figueiredo perca imediatamente o jogo. 🙏🙏🙏 <@!387615365884018688>");
       sended = true;
       return;
     }
